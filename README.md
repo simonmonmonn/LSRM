@@ -1,6 +1,8 @@
 # LSRM
 official code of "Remodeling Semantic Relationships in Vision-Language Fine-tuning"(AAAI-26).
 
+![LSRM overview](image/frameworkv21.jpg)
+
 ## Environment
 ```shell script
 conda create -n lsrm python==3.10
