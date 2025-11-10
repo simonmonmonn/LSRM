@@ -98,7 +98,7 @@ def create_model(args):
     llama.load_state_dict(checkpoint, strict=False)
 
 
-    set_Llama_Adapter(llama, s=args.adapter_scale, gradient_checkpointing=args.gradient_checkpointing)
+    set_Llama_Adapter(llama, s=args.adapter_scale, gradient_checkpointing=args.gradient_checkpointing, Delta = args.Delta, Lambda = args.Lambda)
     set_Clip_Adapter(llama.backbone.visual, dim=args.adapter_dim, s=0.1)
 
     learnable_keys = ['adapter']

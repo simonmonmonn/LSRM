@@ -281,13 +281,13 @@ class Transformer(nn.Module):
         if isinstance(img_indicators, list):
             img_indicators = torch.Tensor(img_indicators).to(image_embeds.device).long()
         
-        image_embeds = self.adapter_proj(image_embeds) * 0.5 * 2
+        image_embeds = self.adapter_proj(image_embeds)
         image_embeds = image_embeds * img_indicators.half().view(-1, 1, 1)
         image_embeds = torch.cat([image_embeds, torch.zeros(image_embeds.size(0), self.params.emb - 256,
                                                             image_embeds.size(2)).half().to(image_embeds.device)],
                                  dim=1)
         
-        image_embeds_ll = self.adapter_proj_ll(image_embeds_ll) * 0.5 * 2
+        image_embeds_ll = self.adapter_proj_ll(image_embeds_ll)
         image_embeds_ll = image_embeds_ll * img_indicators.half().view(-1, 1, 1)
         image_embeds_ll = torch.cat([image_embeds_ll, torch.zeros(image_embeds_ll.size(0), self.params.emb - 256,
                                                             image_embeds_ll.size(2)).half().to(image_embeds_ll.device)],
@@ -345,8 +345,8 @@ class Transformer(nn.Module):
         self.backbone.cuda()
 
         image_embeds, image_embeds_ll = self.backbone.visual.forward_ll_half(images.half())
-        image_embeds = self.adapter_proj(image_embeds) * 0.5 * 2
-        image_embeds_ll = self.adapter_proj_ll(image_embeds_ll) * 0.5 * 2
+        image_embeds = self.adapter_proj(image_embeds)
+        image_embeds_ll = self.adapter_proj_ll(image_embeds_ll)
         
 
         prompt_tokens = []

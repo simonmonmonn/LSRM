@@ -12,6 +12,8 @@ class Adapter(nn.Module):
             self,
             in_features=768,
             hidden_dim=8,
+            Delta = 0.0, 
+            Lambda = 1.0
     ):
         super().__init__()
         if hidden_dim > 0:
@@ -20,14 +22,12 @@ class Adapter(nn.Module):
             self.hidden_dim = hidden_dim
             nn.init.zeros_(self.fc2.weight)
         self.dropout = nn.Dropout(0.1)
-        self.delta = 0.3
-        self.lambd = 0.85
+        self.delta = Delta
+        self.lambd = Lambda
 
     def forward(self, x, vis_weight, vis_mask=None, masktype=0):
         with autocast():
             if vis_weight is not None:
-                # import pdb
-                # pdb.set_trace()
                 if masktype == 0:
                     x = x @ (vis_weight[0] + vis_weight[1]).permute(0, 2, 1)
                     x = self.dropout(F.silu(x))
@@ -101,10 +101,10 @@ def forward_clip(self, x: torch.Tensor):
     return x
 
 
-def set_Llama_Adapter(model, s=1, gradient_checkpointing=False):
+def set_Llama_Adapter(model, s=1, gradient_checkpointing=False, Delta = 0.0, Lambda = 1.0):
     for _ in model.children():
         if type(_) == lsrm.model.TransformerBlock:
-            _.adapter_mlp = Adapter(_.dim, hidden_dim=0)
+            _.adapter_mlp = Adapter(_.dim, hidden_dim=0, Delta = Delta, Lambda = Lambda)
             _.s = s
             _.gradient_checkpointing = gradient_checkpointing
             bound_method = forward_llama.__get__(_, _.__class__)

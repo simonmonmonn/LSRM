@@ -113,6 +113,12 @@ def get_args_parser():
     parser.add_argument('--dataset', type=str, default='sqa')
     
     parser.add_argument('--hiddendimsize', type=int, default=1)
+
+    # LSRM
+    parser.add_argument('--shift_epoch', type=int, default=0)
+    parser.add_argument('--Lambda', type=float, default=1.0)
+    parser.add_argument('--Delta', type=float, default=0.0)
+    
     return parser
 
 
@@ -123,6 +129,7 @@ def main(args):
     print("{}".format(args).replace(', ', ',\n'))
 
     device = torch.device(args.device)
+    shift_epoch = args.shift_epoch
 
     # fix the seed for reproducibility
     seed = args.seed + misc.get_rank()
@@ -215,7 +222,7 @@ def main(args):
             log_writer=log_writer,
             args=args
         )
-        if epoch == 14:
+        if epoch == shift_epoch:
             model.module.mode = 1
 
         if args.output_dir:

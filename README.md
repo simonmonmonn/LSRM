@@ -47,8 +47,6 @@ pip install -e .
 bash scripts/finetuning_sqa_7b.sh
 bash scripts/eval_sqa_7b.sh
 
-ps -ef | grep train | awk '{print $2}' | xargs kill -9
-
 # LLaMA-13B
 bash scripts/finetuning_sqa_13b.sh
 bash scripts/eval_sqa_13b.sh
