@@ -12,4 +12,5 @@ torchrun --nproc_per_node 8 --master_port 11111 train.py \
     --adapter_dim 12 \
     --adapter_scale 0.1 \
     --prompt_format QCM-A \
+    --Delta 0.3 --Lambda 0.85 \
     --seed 1 --emb 400

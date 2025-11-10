@@ -113,6 +113,8 @@ class ModelArgs_7B:
     adapter_dim = 12
     gradient_checkpointing = False
     is_train = False
+    Delta = 0.3
+    Lambda = 0.85
     data_root = './data/'
 
 @dataclass
@@ -127,6 +129,8 @@ class ModelArgs_13B:
     adapter_dim = 12
     gradient_checkpointing = False
     is_train = False
+    Delta = 0.3
+    Lambda = 0.85
     data_root = './data/'
 
 
