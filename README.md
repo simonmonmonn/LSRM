@@ -68,5 +68,13 @@ Fine-tuning takes around 40 minutes for LLaMA-7B on 8x A800 (80G).
 ## Citation
 
 ```
-
+@misc{wu2025remodelingsemanticrelationshipsvisionlanguage,
+      title={Remodeling Semantic Relationships in Vision-Language Fine-Tuning}, 
+      author={Xiangyang Wu and Liu Liu and Baosheng Yu and Jiayan Qiu and Zhenwei Shi},
+      year={2025},
+      eprint={2511.08238},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2511.08238}, 
+}
 ```
